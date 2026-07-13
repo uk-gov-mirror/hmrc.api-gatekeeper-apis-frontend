@@ -42,8 +42,7 @@ class ApiDetailsController @Inject() (
   )(implicit override val ec: ExecutionContext
   ) extends GatekeeperBaseController(strideAuthorisationService, mcc) with GatekeeperRoleActions {
 
-  def page(rawServiceName: String): Action[AnyContent] = loggedInOnly() { implicit request =>
-    val serviceName = ServiceName.apply(rawServiceName)
+  def page(serviceName: ServiceName): Action[AnyContent] = loggedInOnly() { implicit request =>
     apmService
       .fetchApi(serviceName)
       .flatMap {
@@ -54,8 +53,7 @@ class ApiDetailsController @Inject() (
       }
   }
 
-  def events(rawServiceName: String): Action[AnyContent] = loggedInOnly() { implicit request =>
-    val serviceName                             = ServiceName.apply(rawServiceName)
+  def events(serviceName: ServiceName): Action[AnyContent] = loggedInOnly() { implicit request =>
     def handleValidForm(form: EventFiltersForm) = {
       apmService
         .fetchApi(serviceName)

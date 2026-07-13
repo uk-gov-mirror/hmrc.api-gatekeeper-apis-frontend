@@ -27,6 +27,14 @@ lazy val microservice = Project(appName, file("."))
       "uk.gov.hmrc.hmrcfrontend.views.html.helpers._"
     )
   )
+  .settings(
+    routesImport ++= Seq(
+      "uk.gov.hmrc.apigatekeeperapisfrontend.controllers.binders.given",
+      "uk.gov.hmrc.apigatekeeperapisfrontend.controllers.binders.RouteModels.*",
+      "uk.gov.hmrc.apigatekeeperapisfrontend.controllers.binders.RouteModels.Conversions.given"
+    )
+  )
+
   .settings(CodeCoverageSettings.settings: _*)
   .settings(
     Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-eT"),
